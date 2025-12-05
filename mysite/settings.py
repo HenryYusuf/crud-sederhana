@@ -29,9 +29,9 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'secret123')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['localhost', 'crud-django.illogic.web.id']
+ALLOWED_HOSTS = ['localhost', 'crud-django.illogic.web.id'] ## tambahkan host yang diizinkan 'localhost' dan 'nama_domain'
 
-CSRF_TRUSTED_ORIGINS = ['https://crud-django.illogic.web.id']
+CSRF_TRUSTED_ORIGINS = ['https://crud-django.illogic.web.id'] ## tambahkan trusted origins untuk input data
 
 
 # Application definition
@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', ## tambahkan middleware whitenoise
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,6 +86,7 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
 
+        ## Konfigurasi DB PostgreSQL
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
@@ -131,9 +132,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+## tambahkan output static files
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+# Static file storage re-route dengan whitenoise jika tidak menggunakan nginx
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
@@ -141,7 +145,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# Integrasi cloudflare storage
 # Cloudflare R2 / S3 Configuration
 AWS_ACCESS_KEY_ID = os.getenv('R2_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('R2_SECRET_ACCESS_KEY')
