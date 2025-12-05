@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Hapus Dokumen</title></head>
+<body>
+    <h1>Yakin ingin menghapus "{{ object.judul }}"?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Ya, Hapus</button>
+    </form>
+    <a href="{% url 'dokumen-list' %}">Batal</a>
+</body>
+</html>

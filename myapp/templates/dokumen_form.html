@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Form Dokumen</title></head>
+<body>
+    <h1>{% if form.instance.pk %}Edit{% else %}Upload{% endif %} Dokumen</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Simpan</button>
+    </form>
+    <a href="{% url 'dokumen-list' %}">Kembali</a>
+</body>
+</html>

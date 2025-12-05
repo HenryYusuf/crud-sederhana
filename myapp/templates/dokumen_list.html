@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>Daftar Dokumen</title></head>
+<body>
+    <h1>Daftar File Cloudflare R2</h1>
+    <a href="{% url 'dokumen-create' %}">+ Upload Baru</a>
+    <hr>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Judul</th>
+            <th>File</th>
+            <th>Aksi</th>
+        </tr>
+        {% for dok in dokumen_list %}
+        <tr>
+            <td>{{ dok.judul }}</td>
+            <td><a href="{{ dok.file.url }}" target="_blank">Download/Lihat</a></td>
+            <td>
+                <a href="{% url 'dokumen-update' dok.pk %}">Edit</a> | 
+                <a href="{% url 'dokumen-delete' dok.pk %}">Hapus</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">Belum ada dokumen.</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
