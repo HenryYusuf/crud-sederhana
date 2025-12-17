@@ -135,7 +135,7 @@ STATIC_URL = 'static/'
 
 ## tambahkan output static files
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
 
 # Static file storage re-route dengan whitenoise jika tidak menggunakan nginx
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
