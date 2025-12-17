@@ -29,9 +29,9 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'secret123')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['localhost', 'crud-django.illogic.web.id'] ## tambahkan host yang diizinkan 'localhost' dan 'nama_domain'
+ALLOWED_HOSTS = ['localhost', 'django.illogic.web.id'] ## tambahkan host yang diizinkan 'localhost' dan 'nama_domain'
 
-CSRF_TRUSTED_ORIGINS = ['https://crud-django.illogic.web.id'] ## tambahkan trusted origins untuk input data
+CSRF_TRUSTED_ORIGINS = ['https://django.illogic.web.id'] ## tambahkan trusted origins untuk input data
 
 
 # Application definition
