@@ -134,7 +134,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 ## tambahkan output static files
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Static file storage re-route dengan whitenoise jika tidak menggunakan nginx
