@@ -1,28 +1,180 @@
 <!DOCTYPE html>
-<html>
-<head><title>Daftar Dokumen</title></head>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Dokumen</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-color: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --danger-color: #ef4444;
+            --border-color: #334155;
+            --success-color: #22c55e;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, #60a5fa, #38bdf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .action-bar {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent-color);
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-container {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0f172a; /* Slightly darker header */
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #33415533;
+        }
+
+        .link-action {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-right: 0.5rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .link-action:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .link-delete {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .link-delete:hover {
+            color: var(--danger-color);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 3rem;
+            font-style: italic;
+        }
+    </style>
+</head>
 <body>
-    <h1>Daftar File Cloudflare R2</h1>
-    <a href="{% url 'dokumen-create' %}">+ Upload Baru</a>
-    <hr>
-    <table border="1" cellpadding="5">
-        <tr>
-            <th>Judul</th>
-            <th>File</th>
-            <th>Aksi</th>
-        </tr>
-        {% for dok in dokumen_list %}
-        <tr>
-            <td>{{ dok.judul }}</td>
-            <td><a href="{{ dok.file.url }}" target="_blank">Download/Lihat</a></td>
-            <td>
-                <a href="{% url 'dokumen-update' dok.pk %}">Edit</a> | 
-                <a href="{% url 'dokumen-delete' dok.pk %}">Hapus</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="3">Belum ada dokumen.</td></tr>
-        {% endfor %}
-    </table>
+    <div class="container">
+        <h1>Daftar File Cloudflare R2</h1>
+        
+        <div class="action-bar">
+            <a href="{% url 'dokumen-create' %}" class="btn">+ Upload Baru</a>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Judul</th>
+                        <th>File</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dok in dokumen_list %}
+                    <tr>
+                        <td style="font-weight: 500;">{{ dok.judul }}</td>
+                        <td><a href="{{ dok.file.url }}" target="_blank" class="link-action">Download/Lihat</a></td>
+                        <td>
+                            <a href="{% url 'dokumen-update' dok.pk %}" class="link-action">Edit</a>
+                            <span style="color: var(--border-color);">|</span>
+                            <a href="{% url 'dokumen-delete' dok.pk %}" class="link-action link-delete">Hapus</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="empty-state">Belum ada dokumen. Silakan upload file baru.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
